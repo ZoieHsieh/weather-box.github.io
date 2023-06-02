@@ -1,0 +1,268 @@
+$color_white: #f3f3f3
+$color_yellow: #FFD633
+$color_black: #2c3e50
+$color_blue_start: #19283D
+$color_blue_end: #1D678F
+$color_rain: #4DACFF
+$color_white_cloud: #f2f9fe
+$color_grey_cloud: #ccc
+
+$color-sun-yellow: #f9ca24
+$color-sun-yellow-light: #f6e58d
+$color-mouth: #eb4d4b
+$color-moon: #ffd32a
+$color-mountain: #079992
+*
+	position: relative
+	// border: 1px solid 
+html,body
+	width: 100%
+	height: 100%
+	margin: 0
+	padding: 0
+	display: flex
+	justify-content: center
+	align-items: center
+	background: $color_black
+@mixin size($w,$h)
+	width: $w
+	height: $h
+label
+	cursor: pointer
+.weather-box
+	width: 400px
+	background: $color_white
+	box-shadow: 0px 0px 20px rgba(black,0.3)
+	border-radius: 10px
+	overflow: hidden
+	&:hover
+		.box-bottom
+			height: 100px
+			.dayweather
+				opacity: 1
+				top: 0px
+	
+	.temsvg
+		width: 100%
+		
+		
+		polyline
+			stroke: $color_white
+			stroke-width: 2px solid
+			opacity: 0
+			fill: none
+			
+		text
+			transform: translateX(-12px) translateY(23px)
+			font-size: 10px
+			opacity: 0
+			fill: $color_white
+		circle
+			fill: $color_white
+			opacity: 0.2
+	.box-top
+		height: 300px
+		background: linear-gradient(20deg,#48dbfb,#0097e6)
+		background-size: 100% 300%
+		animation: daylight 5s both
+	
+		@keyframes daylight
+			0%
+				background-position: 100% 30%
+			100%
+				background-position: 100% 100%
+	
+		.mountain
+			width:100%
+			fill: $color-mountain
+			
+					
+		
+		
+	.text-area
+		color: #fa983a
+		margin-left: 20px
+		position: absolute
+		bottom: 20px
+		font-family: 'DM Sans',微軟正黑體
+		letter-spacing: 2px
+		.temperature
+			font-size: 65px
+			font-weight: 500
+			line-height: 60px
+		.address,.date
+			font-size: 12px
+			color: #f6b93b
+			
+	.box-bottom
+		height: 10px
+		display: flex
+		justify-content: center
+		box-shadow: 0px 0px 20px rgba(black,0.3)
+		overflow: hidden
+		// opacity: 0
+		.dayweather
+			display: inline-block
+			width: calc(100% / 7 - 5px)	
+			text-align: center
+			opacity: 0
+			top: 20px
+			transition: 0.5s
+			h3
+				font-size: 8px
+				color: rgba($color_black,0.6)
+				font-weight: 400
+				letter-spacing: 1px
+			svg
+				width: 100%
+				max-width: 40px
+				height: 40px
+			.sun
+				stroke: rgba($color_yellow,0.3)
+				stroke-width: 30px
+				stroke-dasharray: 5px
+				fill: $color_yellow
+			.rain
+				stroke: black
+				fill: $color_rain
+			.cloud
+				fill: $color_grey_cloud
+	
+	.dayweather:nth-child(1)
+		transition-delay: 0.2s
+	.dayweather:nth-child(2)
+		transition-delay: 0.4s
+	.dayweather:nth-child(3)
+		transition-delay: 0.6s
+	.dayweather:nth-child(4)
+		transition-delay: 0.8s
+	.dayweather:nth-child(5)
+		transition-delay: 1s
+	.dayweather:nth-child(6)
+		transition-delay: 1.2s
+	.dayweather:nth-child(7)
+		transition-delay: 1.4s
+	
+		
+		
+	
+		
+	.moon,.cloud
+		transition: 0.5s
+	.temsvg
+		circle
+			transition: 0.5s
+		text
+			transition: 0.5s 1s
+		polyline
+			transition: 0.5s 0.6s
+	#switch-night
+			display: none
+
+	#switch-night:checked+.box-top
+		background: linear-gradient(20deg,$color_blue_start,$color_blue_end)
+		#bigsun
+			opacity: 0
+		#bigmoon, #star
+			opacity: 1
+		.mountain
+			circle,rect,ellipse
+				opacity: 0
+		.temsvg
+			circle,text,polyline
+				opacity: 1
+		.text-area
+			.date
+				opacity: 0
+			.temperature,.address
+				color: $color-white
+		
+	
+	
+	#bigsun
+		+size(160px,160px)
+		& .font
+				fill: $color-sun-yellow
+		& .back
+				stroke-width: 30px
+				stroke: $color-sun-yellow-light
+				stroke-dasharray: 5px
+				
+		& .rim
+				stroke-width: 2px
+				stroke: black
+		& .mouth
+				stroke: $color-mouth
+				fill: $color-mouth
+		& .mouthup
+				fill:$color-sun-yellow
+		& .eyes
+				stroke-width: 2px
+				stroke: black
+				fill: #596275
+		& .glass,.rim
+			animation: glassmove 2s infinite
+	@keyframes glassmove
+		0%
+			transform: translateY(0px)
+		100%
+			transform: translateY(8px)	
+		
+	#bigmoon
+		opacity: 0
+		+size(170px,170px)
+		& .moon1
+				
+		& .moon1,.block
+				fill: $color-moon		
+		& .mouth
+				stroke: $color-mouth
+				fill: $color-mouth
+		& .mouthup
+				fill: $color-moon
+		& .blush
+				fill: #ea8685
+
+		text
+			fill: #596275
+			font-weight: 600
+		& .z1
+			opacity: 0
+			font-size: 20px
+			animation: ani1 3s infinite
+			transition-delay: 7s
+		& .z2
+			opacity: 0
+			font-size: 15px
+			animation: ani1 3s infinite
+			transition-delay: 5s
+		& .z3
+			font-size: 12px
+			animation: ani1 3s infinite
+	
+	@keyframes ani1
+		0%
+			opacity: 0.2
+		50%
+			opacity: 0.5
+		75%
+			opacity: 1
+		100%
+			opacity: 0
+	
+// 	#star
+// 		opacity: 1
+// 		circle
+// 			animation: enlarge 4s infinite
+// 			fill: #ffffff
+	
+	
+// 	@keyframes enlarge
+// 		0%
+// 			opacity: 0.8
+// 		50%
+// 			opacity: 0.6
+// 		75%
+// 			opacity: 0.4
+// 		100%
+// 			opacity: 0.8
